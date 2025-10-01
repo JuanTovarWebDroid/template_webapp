@@ -1,10 +1,7 @@
 import { useId, useMemo, useState } from 'react'
 
 import ClientAccessPage from './pages/ClientAccessPage'
-import TemplatePreviewPage, {
-  TEMPLATE_LABEL,
-  TEMPLATE_TITLE,
-} from './pages/TemplatePreviewPage'
+import TemplatePreviewPage from './pages/TemplatePreviewPage'
 import type { TemplateSummary } from './pages/TemplatePreviewPage'
 import { VoicesOnStageTemplate } from './templates/voices-on-stage'
 import { VoicesOnStageLightTemplate } from './templates/voices-on-stage-light'
@@ -164,43 +161,20 @@ function App() {
   }
 
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-cream-100 to-cream-50 p-6">
+    <div className="relative flex min-h-screen flex-col items-center justify-start overflow-hidden bg-gradient-to-b from-cream-100 to-cream-50 px-4 py-8 sm:justify-center sm:px-10 sm:py-12 lg:p-12">
       {/* Subtle vignette */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(1200px_600px_at_50%_-10%,rgba(168,148,107,0.12),transparent)]" />
 
       {showTemplates ? (
-        <>
-          <div className="absolute left-6 top-6 z-20 flex flex-col gap-3 sm:gap-4">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.28em] text-accent-500">{TEMPLATE_LABEL}</p>
-              <h1 className="mt-1 text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">{TEMPLATE_TITLE}</h1>
-            </div>
-            <button
-              type="button"
-              onClick={handleBack}
-              className="group inline-flex w-fit items-center gap-2 rounded-lg border border-cream-300/70 bg-white/80 px-4 py-2 text-sm font-medium text-ink-800 shadow-soft transition duration-200 ease-out hover:border-accent-400 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ink-800"
-            >
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 20 20"
-                fill="none"
-                className="h-4 w-4 stroke-current transition-transform duration-200 ease-out group-hover:-translate-x-0.5"
-              >
-                <path d="M11.25 5.25L6.5 10l4.75 4.75" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M7 10h6.5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              Go Back
-            </button>
-          </div>
-          <div className="relative z-10 ml-auto w-full max-w-5xl">
-            <TemplatePreviewPage
-              templates={templates}
-              onTemplateSelect={(templateId) => {
-                setActiveTemplateId(templateId)
-              }}
-            />
-          </div>
-        </>
+        <div className="relative z-10 w-full max-w-6xl">
+          <TemplatePreviewPage
+            templates={templates}
+            onTemplateSelect={(templateId) => {
+              setActiveTemplateId(templateId)
+            }}
+            onBack={handleBack}
+          />
+        </div>
       ) : (
         <ClientAccessPage
           inputId={inputId}

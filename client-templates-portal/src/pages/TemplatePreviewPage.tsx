@@ -8,6 +8,7 @@ import { VoicesOnStageV1Template } from '../templates/voices-on-stage-v1'
 interface TemplatePreviewPageProps {
   templates: TemplateSummary[]
   onTemplateSelect: (templateId: string) => void
+  onBack?: () => void
 }
 
 export interface TemplateSummary {
@@ -81,21 +82,49 @@ const previewRenderers: Record<string, JSX.Element> = {
   ),
 }
 
-function TemplatePreviewPage({ templates, onTemplateSelect }: TemplatePreviewPageProps) {
+function TemplatePreviewPage({ templates, onTemplateSelect, onBack }: TemplatePreviewPageProps) {
   const gridColumnsClass = getGridColumnClass(templates.length)
 
   return (
     <main className="relative z-10 w-full">
-      <section className="mx-auto w-full max-w-[min(100%,76rem)] rounded-2xl border border-cream-300/50 bg-white/80 px-8 py-10 shadow-soft transition-all duration-200 ease-out backdrop-blur supports-[backdrop-filter]:bg-white/65 sm:px-12 sm:py-12">
-        <header className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 className="text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
-              mariacamilasolorza.com site
-            </h2>
+      <section className="mx-auto w-full max-w-[min(100%,76rem)] rounded-2xl border border-cream-300/50 bg-white/80 px-5 py-8 shadow-soft transition-all duration-200 ease-out backdrop-blur supports-[backdrop-filter]:bg-white/65 sm:px-10 sm:py-10 lg:px-12 lg:py-12">
+        <header className="mb-8 flex flex-col gap-6 sm:gap-8">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+            <div className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent-500 sm:text-sm">
+                {TEMPLATE_LABEL}
+              </p>
+              <div>
+                <h2 className="text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
+                  {TEMPLATE_TITLE}
+                </h2>
+                <p className="mt-2 text-base text-ink-700/80 sm:text-lg">
+                  mariacamilasolorza.com site
+                </p>
+              </div>
+            </div>
+            {onBack ? (
+              <button
+                type="button"
+                onClick={onBack}
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cream-300/70 bg-white/80 px-4 py-2 text-sm font-medium text-ink-800 shadow-soft transition duration-200 ease-out hover:border-accent-400 hover:text-ink-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ink-800 sm:w-auto"
+              >
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  className="h-4 w-4 stroke-current transition-transform duration-200 ease-out group-hover:-translate-x-0.5"
+                >
+                  <path d="M11.25 5.25L6.5 10l4.75 4.75" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M7 10h6.5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                Go Back
+              </button>
+            ) : null}
           </div>
         </header>
 
-        <div className={`grid grid-cols-1 gap-y-8 gap-x-8 ${gridColumnsClass}`}>
+        <div className={`grid grid-cols-1 gap-y-6 sm:gap-y-8 sm:gap-x-8 ${gridColumnsClass}`}>
           {templates.map((template) => (
             <article
               key={template.id}
@@ -115,7 +144,7 @@ function TemplatePreviewPage({ templates, onTemplateSelect }: TemplatePreviewPag
               </figure>
               <div className="flex flex-1 flex-col gap-4 p-6">
                 <div>
-                  <h3 className="text-xl font-semibold text-ink-900">{template.title}</h3>  
+                  <h3 className="text-xl font-semibold text-ink-900">{template.title}</h3>
                   <p className="mt-2 text-sm text-ink-700/80">Created by {template.author}</p>
                 </div>
                 <time
