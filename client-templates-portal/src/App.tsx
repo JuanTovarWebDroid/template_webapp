@@ -48,7 +48,7 @@ function App() {
         detailId: 'voices-on-stage',
       },
       {
-        id: 'luminous-portfolio',
+        id: 'Light Theme',
         title: 'Light Theme Site v2',
         variantTitle: 'Light Theme Site v2',
         author: 'Juan Tovar',
